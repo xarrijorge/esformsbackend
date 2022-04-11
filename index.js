@@ -1,14 +1,10 @@
+/* eslint-disable no-unused-vars */
 require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-
-const Contact = require('./models/contactsModel')
-app.use(cors())
-app.use(bodyParser.json())
-app.use(express.static('build'))
 
 let users = [
     {
