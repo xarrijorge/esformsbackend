@@ -62,8 +62,7 @@ app.post('/requests', async (req, res, next) => {
         const db = Client.db('esforms')
         const requestCollection = db.collection('requests')
 
-        const query = { 'Employee Email Address': `${req.query.email}` }
-        await requestCollection.insertOne(query)
+        await requestCollection.insertOne(body)
         res.send(body)
     } catch (err) {
         console.log(err)
