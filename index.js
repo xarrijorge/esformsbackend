@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 require('dotenv').config()
 const express = require('express')
 const app = express()
@@ -6,32 +5,14 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 
-let users = [
-    {
-        LastName: 'George',
-        FirstName: 'Randy Xarrie',
-        FullName: 'Randy Xarrie George',
-        JobTitle: 'System Admin/Development Operations Officer',
-        Department: 'IT',
-        LineManagerName: 'Ousmane Diallo',
-        LineManagerEmailAddress: 'ousmane@easysolar.org',
-        EmployeeEmailAddress: 'randy.george@easysolar.org',
-        Accommodation: '300,000',
-        Meals: '50,000',
-    },
-    {
-        LastName: 'Rahim',
-        FirstName: 'Muctarr',
-        FullName: 'Muctarr Rahim',
-        JobTitle: 'System Admin/Development Operations Officer',
-        Department: 'IT',
-        LineManagerName: 'Ousmane Diallo',
-        LineManagerEmailAddress: 'ousmane@easysolar.org',
-        EmployeeEmailAddress: 'muctarr.rahim@easysolar.org',
-        Accommodation: '300,000',
-        Meals: '50,000',
-    },
-]
+const URI = process.env.MONGODB_URI
+
+const MongoClient = require('mongodb').MongoClient
+const Client = new MongoClient(URI)
+
+app.use(cors())
+app.use(bodyParser.json())
+app.use(express.static('build'))
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
@@ -58,8 +39,22 @@ app.get('/', (req, res) => {
     res.send('<h1>Horld!</h1>')
 })
 
-app.get('/users', (req, res, next) => {
-    res.json(users)
+app.get('/users', async (req, res) => {
+    try {
+        await Client.connect()
+        const db = Client.db('esforms')
+        const usersCollection = db.collection('users')
+
+        const query = { 'Employee Email Address': `${req.query.email}` }
+        const user = await usersCollection.findOne(query)
+        res.send(user)
+    } finally {
+        await Client.close()
+    }
+})
+
+app.post('/requests', (req, res, next) => {
+    const body = req.body
 })
 
 const unknownEndpoint = (request, response) => {
