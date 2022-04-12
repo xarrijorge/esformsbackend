@@ -48,13 +48,28 @@ app.get('/users', async (req, res) => {
         const query = { 'Employee Email Address': `${req.query.email}` }
         const user = await usersCollection.findOne(query)
         res.send(user)
+    } catch (err) {
+        console.log(err)
     } finally {
         await Client.close()
     }
 })
 
-app.post('/requests', (req, res, next) => {
+app.post('/requests', async (req, res, next) => {
     const body = req.body
+    try {
+        await Client.connect()
+        const db = Client.db('esforms')
+        const requestCollection = db.collection('requests')
+
+        const query = { 'Employee Email Address': `${req.query.email}` }
+        await requestCollection.insertOne(query)
+        res.send(body)
+    } catch (err) {
+        console.log(err)
+    } finally {
+        await Client.close()
+    }
 })
 
 const unknownEndpoint = (request, response) => {
