@@ -75,7 +75,7 @@ app.get('/users', async (req, res) => {
 })
 
 app.post('/requests', async (req, res, next) => {
-    const body = req.body
+    const body = { ...req.body, useID: user._ID, submittedOn: new Date() }
     try {
         await Client.connect()
         const db = Client.db('esforms')
