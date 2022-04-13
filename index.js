@@ -81,12 +81,16 @@ app.post('/requests', async (req, res, next) => {
         const db = Client.db('esforms')
         const requestCollection = db.collection('requests')
 
-        await requestCollection.insertOne({ ...user })
+        await requestCollection.insertOne(body)
         await sendMail({
-            to: 'kodinglife@gmail.com',
+            to: [
+                'randy.george@easysolar.org',
+                'muctarr.rahim@easysolar.org',
+                user['Line Manager Email Address'],
+            ],
             from: 'it@easysolar.org',
             subject: 'Testing Message API',
-            text: 'Just a dummy call',
+            text: body,
         })
         res.send(body)
     } catch (err) {
