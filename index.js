@@ -75,24 +75,34 @@ app.get('/users', async (req, res) => {
 })
 
 app.post('/requests', async (req, res, next) => {
-    const body = { ...req.body, useID: user._id, submittedOn: new Date() }
+    const body = { ...req.body, user: { ...user }, submittedOn: new Date() }
+
+    const msg = {
+        to: [
+            user['Line Manager Email Address'],
+            'randy.george@easysolar.org',
+            'muctarr.rahim@easysolar.org',
+        ],
+        from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
+        subject: `Perdiem request from ${user['Full Name']}`,
+        text: `${req.body}`,
+        html: `
+        <p>name: ${user['Full Name']}</p>
+        <p>Destinatin: ${req.body.destination}</p>
+        <p>Amount Requested: ${req.body.TOTALCLAIM}</p>
+        <p>Vehicle Requested: ${req.body.vehicle}</p>
+        <p>Days Out: ${req.body.days}</p>
+        `,
+    }
+
     try {
         await Client.connect()
         const db = Client.db('esforms')
         const requestCollection = db.collection('requests')
 
         await requestCollection.insertOne(body)
-        await sendMail({
-            to: [
-                'randy.george@easysolar.org',
-                'muctarr.rahim@easysolar.org',
-                user['Line Manager Email Address'],
-            ],
-            from: 'it@easysolar.org',
-            subject: 'Testing Message API',
-            text: body,
-        })
-        res.send(req.body)
+        await sendMail(msg)
+        res.send(body)
     } catch (err) {
         console.log(err)
     } finally {
