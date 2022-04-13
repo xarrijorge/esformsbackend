@@ -4,11 +4,28 @@ const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+const sgMail = require('@sendgrid/mail')
 
-const URI = process.env.MONGODB_URI
+const MONGO_URI = process.env.MONGODB_URI
+const EMAIL_URI = process.env.SG_URI
 
 const MongoClient = require('mongodb').MongoClient
-const Client = new MongoClient(URI)
+const Client = new MongoClient(MONGO_URI)
+
+sgMail.setApiKey(EMAIL_URI)
+
+const sendMail = async (msg) => {
+    try {
+        await sgMail.send(msg)
+    } catch (error) {
+        console.error(error)
+
+        if (error.response) {
+            console.error(error.response.body)
+        }
+    }
+    console.log('email sent successfully')
+}
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -39,6 +56,8 @@ app.get('/', (req, res) => {
     res.send('<h1>Horld!</h1>')
 })
 
+let user = {}
+
 app.get('/users', async (req, res) => {
     try {
         await Client.connect()
@@ -46,7 +65,7 @@ app.get('/users', async (req, res) => {
         const usersCollection = db.collection('users')
 
         const query = { 'Employee Email Address': `${req.query.email}` }
-        const user = await usersCollection.findOne(query)
+        user = await usersCollection.findOne(query)
         res.send(user)
     } catch (err) {
         console.log(err)
@@ -62,7 +81,13 @@ app.post('/requests', async (req, res, next) => {
         const db = Client.db('esforms')
         const requestCollection = db.collection('requests')
 
-        await requestCollection.insertOne(body)
+        await requestCollection.insertOne({ ...user })
+        await sendMail({
+            to: 'kodinglife@gmail.com',
+            from: 'it@easysolar.org',
+            subject: 'Testing Message API',
+            text: 'Just a dummy call',
+        })
         res.send(body)
     } catch (err) {
         console.log(err)
