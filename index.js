@@ -75,7 +75,7 @@ app.get('/users', async (req, res) => {
 })
 
 app.post('/requests', async (req, res, next) => {
-    const body = { ...req.body, useID: user._ID, submittedOn: new Date() }
+    const body = { ...req.body, useID: user._id, submittedOn: new Date() }
     try {
         await Client.connect()
         const db = Client.db('esforms')
@@ -92,7 +92,7 @@ app.post('/requests', async (req, res, next) => {
             subject: 'Testing Message API',
             text: body,
         })
-        res.send(body)
+        res.send(req.body)
     } catch (err) {
         console.log(err)
     } finally {
