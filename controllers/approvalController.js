@@ -1,11 +1,12 @@
 module.exports = function (user, req) {
     let opsMail =
         req.transportation === 'Yes' ? 'muctarr.rahim@easysolar.org' : null
+    let financeMail = 'dsafinance@sl.easysolar.org'
     return {
-        to: ['randy.george@easysolar.org'],
-        cc: ['osman.kamara@sl.easysolar.org', opsMail],
+        to: [financeMail, opsMail],
+        cc: [user['Employee Email Address']],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-        subject: `Perdiem request from ${user['Full Name']}`,
+        subject: `Approved PerDiem Rcequest from ${user['Full Name']}`,
         html: `
        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
@@ -363,7 +364,6 @@ body {font-family: 'Lato', sans-serif;}
         </div>
       </center>
     </body>
-</html> 
-        `,
+</html> `,
     }
 }

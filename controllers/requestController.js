@@ -1,7 +1,6 @@
 module.exports = function (user, req, id) {
     return {
-        to: ['randy.george@easysolar.org'],
-        cc: ['muctarr.rahim@easysolar.org'],
+        to: [user['Line Manager Email']],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Perdiem request from ${user['Full Name']}`,
         html: `
