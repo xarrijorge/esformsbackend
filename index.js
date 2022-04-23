@@ -123,6 +123,21 @@ app.post('/requests', async (req, res, next) => {
     }
 })
 
+app.post('/pettycash', async (req, res) => {
+    try {
+        await Client.connect()
+        const db = Client.db('esforms')
+        const pettyCashCollection = db.collection('pettycash')
+
+        await pettyCashCollection.insertOne(req.body)
+        res.send(req.body)
+    } catch (err) {
+        console.log(err)
+    } finally {
+        await Client.close()
+    }
+})
+
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
 }
