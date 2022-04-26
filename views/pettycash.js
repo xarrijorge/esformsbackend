@@ -16,7 +16,7 @@ module.exports = function (user, req) {
         // to: 'randy.george@easysolar.org',
         bcc: ['muctarr.rahim@easysolar.org', 'randy.george@easysolar.org'],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-        subject: `Perdiem request from ${user['Full Name']}`,
+        subject: `Petty Cash Request from ${user['Full Name']}`,
         html: `<!DOCTYPE html>
         <html lang="en">
         <head>
