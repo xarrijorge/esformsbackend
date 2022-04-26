@@ -42,7 +42,7 @@ requestRouter.get('/users', async (req, res) => {
     }
 })
 
-requestRouter.get('/approve', async (req, res) => {
+requestRouter.get('/approve/perdiem', async (req, res) => {
     const id = ObjectId(`${req.query.id}`)
     try {
         await Client.connect()

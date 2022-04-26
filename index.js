@@ -24,7 +24,7 @@ app.get('/users', requestRouter)
 app.post('/requests/perdiem', requestRouter)
 app.post('/requests/pettycash', requestRouter)
 app.post('/requests/vehicle', requestRouter)
-app.get('/approve', requestRouter)
+app.get('/approve/perdiem', requestRouter)
 app.get('/reject', requestRouter)
 app.post('/pettycash', pettyCashRouter)
 
