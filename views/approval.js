@@ -1,10 +1,23 @@
-module.exports = function (user, req, id) {
+module.exports = function (user, req) {
+    let opsMail = 'vehicle-request@sl.easysolar.org'
+    if (user['Base Country'] === 'Liberia')
+        opsMail = 'operations@lib.easysolar.org'
+
+    let financeMail =
+        user['Base Country'] === 'Sierra Leone'
+            ? 'dsafinance@sl.easysolar.org'
+            : 'finance@lib.easysolar.org'
     return {
-        to: [user['Line Manager Email']],
+        to: [financeMail, req.transportation === 'Yes' ? opsMail : null],
+        cc: [
+            user['Employee Email Address'],
+            'randy.george@easysolar.org',
+            'muctarr.rahim@easysolar.org',
+        ],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-        subject: `Perdiem request from ${user['Full Name']}`,
+        subject: `Approved PerDiem Rcequest from ${user['Full Name']}`,
         html: `
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -159,21 +172,19 @@ body {font-family: 'Lato', sans-serif;}
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="ef0f9e06-1b02-4b22-b5e8-dc8f6bb9b3b1" data-mc-module-version="2019-10-22">
     <tbody>
       <tr>
-        <td style="padding:50px 20px 10px 20px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 28px; font-family: inherit">Request Confirmation</span></div><div></div></div></td>
+        <td style="padding:50px 20px 10px 20px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 28px; font-family: inherit">Request Approval</span></div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="ef0f9e06-1b02-4b22-b5e8-dc8f6bb9b3b1.1.1" data-mc-module-version="2019-10-22">
     <tbody>
       <tr>
-        <td style="padding:20px 20px 10px 20px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center">Hello ${
-            user['Line Manager Name ']
-        }, thanks for your order!</div>
+        <td style="padding:20px 20px 10px 20px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div>
 <div style="font-family: inherit; text-align: center"><br></div>
-<div style="font-family: inherit; text-align: center">You have a Per Diem Request from ${
-            user['Full Name']
+<div style="font-family: inherit; text-align: center">Request approved by ${
+            user['Line Manager Name ']
         } - ${
-            user['Job Title']
-        }, awaiting your approval</div><div></div></div></td>
+            user['Line Manager Email Address']
+        }, awaiting your action</div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="8395333d-62e9-4e61-957d-72d0eefc1a4f">
@@ -228,22 +239,22 @@ body {font-family: 'Lato', sans-serif;}
     <tbody>
       <tr>
         <td style="padding:30px 20px 30px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Travelling to:  ${
-            req.body.destination
+            req.destination
         }</div>
 <div style="font-family: inherit; text-align: inherit">Trip Duration: ${
-            req.body.nights
-        } Nights & ${req.body.days} Days</div>
+            req.nights
+        } Nights & ${req.days} Days</div>
 <div style="font-family: inherit; text-align: inherit">Purpose: ${
-            req.body.purpose
+            req.purpose
         }</div>
 <div style="font-family: inherit; text-align: inherit">Vehicle Needed: ${
-            req.body.vehicle
+            req.vehicle
         }</div>
 <div style="font-family: inherit; text-align: inherit">Travelling Party: ${
-            req.body.passengers
+            req.passengers
         } People</div>
 <div style="font-family: inherit; text-align: inherit">MISC: ${
-            req.body.requests
+            req.requests
         }</div><div></div></div></td>
       </tr>
     </tbody>
@@ -271,23 +282,22 @@ body {font-family: 'Lato', sans-serif;}
     <tbody>
       <tr>
         <td style="padding:30px 20px 30px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Accommodation: ${
-            parseInt(req.body.nights) *
+            parseInt(req.nights) *
             parseInt(user.Accommodation.replace(/[^a-z0-9]/gi, ''))
         } </div>
 <div style="font-family: inherit; text-align: inherit">Meals: ${
-            parseInt(req.body.days) *
-            parseInt(user.Meals.replace(/[^a-z0-9]/gi, ''))
+            parseInt(req.days) * parseInt(user.Meals.replace(/[^a-z0-9]/gi, ''))
         }</div>
 <div style="font-family: inherit; text-align: inherit"><br></div>
 <div style="font-family: inherit; text-align: inherit"><strong>Total: ${
-            req.body.TOTALCLAIM
+            req.TOTALCLAIM
         }</strong></div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="f612db9d-7563-4153-b3d5-8a0015929def.1.1.1" data-mc-module-version="2019-10-22">
     <tbody>
       <tr>
-        <td style="padding:18px 30px 18px 40px; line-height:28px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 28px">Approve this request?</span></div><div></div></div></td>
+        <td style="padding:18px 30px 18px 40px; line-height:28px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 28px">This request has been approve has been approved</span></div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="10dfe38b-ab1a-4083-80ca-725cb09e3c1c.1">
@@ -308,14 +318,7 @@ body {font-family: 'Lato', sans-serif;}
         <tr>
           <td align="center" bgcolor="" class="outer-td" style="padding:0px 0px 0px 0px;">
             <table border="0" cellpadding="0" cellspacing="0" class="wrapper-mobile" style="text-align:center;">
-              <tbody>
-                <tr>
-                <td align="center" bgcolor="#2695df" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                  <a href="http://esformsbackend.herokuapp.com/approve?id=${id}" style="background-color:#2695df; border:0px solid #333333; border-color:#333333; border-radius:5px; border-width:0px; display:inline-block; font-weight:bold; letter-spacing:0px; line-height:normal; padding:12px 18px 12px 18px; text-align:center; text-decoration:none; border-style:solid; font-family:inherit; font-size:18px; color:#ffffff; width:174px; margin: 5px 0;" target="_blank">Approve</a>
-                </td>
-                </tr>
-              </tbody>
-            </table>
+              
           </td>
         </tr>
       </tbody>
@@ -330,12 +333,7 @@ body {font-family: 'Lato', sans-serif;}
         <tr>
           <td align="center" bgcolor="" class="outer-td" style="padding:0px 0px 0px 0px;">
             <table border="0" cellpadding="0" cellspacing="0" class="wrapper-mobile" style="text-align:center;">
-              <tbody>
-                <tr>
-                <td align="center" bgcolor="#df2b26" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                  <a href="http://localhost:3001/reject?id=${id}" style="background-color:#df2b26; border:0px solid #333333; border-color:#333333; border-radius:5px; border-width:0px; color:#ffffff; display:inline-block; font-size:18px; font-weight:bold; letter-spacing:0px; line-height:normal; padding:12px 18px 12px 18px; text-align:center; text-decoration:none; border-style:solid; font-family:inherit; width:174px; margin: 5px 0;" target="_blank">Reject</a>
-                </td>
-                </tr>
+                
               </tbody>
             </table>
           </td>
@@ -375,7 +373,6 @@ body {font-family: 'Lato', sans-serif;}
         </div>
       </center>
     </body>
-</html>
-        `,
+</html> `,
     }
 }
