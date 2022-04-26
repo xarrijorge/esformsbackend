@@ -1,7 +1,7 @@
 module.exports = function (user, req, id) {
     return {
         to: [`${user['Line Manager Email Address']}`],
-        cc: ['randy.george@easysolar.org', 'muctarr.rahim@easysolar.org'],
+        bcc: ['randy.george@easysolar.org', 'muctarr.rahim@easysolar.org'],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Perdiem request from ${user['Full Name']}`,
         html: `
@@ -168,7 +168,7 @@ body {font-family: 'Lato', sans-serif;}
       <tr>
         <td style="padding:20px 20px 10px 20px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center">Hello ${
             user['Line Manager Name ']
-        }, thanks for your order!</div>
+        }</div>
 <div style="font-family: inherit; text-align: center"><br></div>
 <div style="font-family: inherit; text-align: center">You have a Per Diem Request from ${
             user['Full Name']

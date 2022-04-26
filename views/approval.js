@@ -9,11 +9,8 @@ module.exports = function (user, req) {
             : 'finance@lib.easysolar.org'
     return {
         to: [financeMail, req.transportation === 'Yes' ? opsMail : null],
-        cc: [
-            user['Employee Email Address'],
-            'randy.george@easysolar.org',
-            'muctarr.rahim@easysolar.org',
-        ],
+        cc: [user['Employee Email Address']],
+        bcc: ['randy.george@easysolar.org', 'muctarr.rahim@easysolar.org'],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Approved PerDiem Rcequest from ${user['Full Name']}`,
         html: `
