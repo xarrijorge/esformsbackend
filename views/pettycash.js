@@ -1,18 +1,20 @@
 module.exports = function (user, req) {
-    let tableData = document.getElementById('itemsTable')
-
     let data = req['items']
+    let viewData = ''
+    let totalArr = []
 
-    for (const item in data.items) {
-        let newRow = tableData.insertRow(-1)
-        newRow.insertCell(0).innerHTML = `${item}`
-        newRow.insertCell(1).innerHTML = `${data.items[item].cost}`
-        newRow.insertCell(2).innerHTML = `${data.items[item].amount}`
-        newRow.insertCell(3).innerHTML = `${data.items[item].total}`
+    for (const item in data) {
+        totalArr.push(parseInt(`${data[item].total}`))
+        viewData += `<tr><td>${item}</td>`
+        viewData += `<td>${data[item].cost}</td>`
+        viewData += `<td>${data[item].amount}</td>`
+        viewData += `<td>${data[item].total}</td></tr>`
     }
+
     return {
         to: [`${user['Line Manager Email Address']}`],
-        cc: ['muctarr.rahim@easysolar.org', 'randy.george@easysolar.org'],
+        // to: 'randy.george@easysolar.org',
+        bcc: ['muctarr.rahim@easysolar.org', 'randy.george@easysolar.org'],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Perdiem request from ${user['Full Name']}`,
         html: `<!DOCTYPE html>
@@ -37,20 +39,32 @@ module.exports = function (user, req) {
         tr:nth-child(even) {
         background-color: #dddddd;
         }
+        tfoot{
+            font-weight: bold;
+        }
         </style>
         </head>
         <body>
         <div id="pettycash">
-            <p>Bank Name: UBA</p>
-            <p>Account #: 554821347896</p>
-            <p>Account Name: Eric Bailey</p>
-            <p>Budget Code: 104</p>
+            <p>Requester's Name: ${user['Full Name']}</p>
+            <p>Requester Department: ${user['Department']}</p>
+            <p>Requester Position: ${user['Job Title']}</p>
+            <p>Account #: ${req.accountnumber}</p>
+            <p>Account Name: ${req.accountname}</p>
+            <p>Budget Code: ${req.budgetcode}</p>
         <table id='itemsTable'>
         <tr>
             <th>Item</th>
             <th>Unit cost</th>
-            <th>Amount</th>
+            <th>Quantity</th>
             <th>Total</th>
+            ${viewData}
+            <tfoot>
+                <td>TOTAL</td>
+                <td>-</td>
+                <td>-</td>
+                <td>${totalArr.reduce((a, b) => a + b)}</td>
+            </tfoot>
         </tr>
         
         </table>

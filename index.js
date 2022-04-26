@@ -5,7 +5,6 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const { errorHandler, unknownEndpoint, accessControl } = require('./utils')
 const requestRouter = require('./controllers/requests')
-const pettyCashRouter = require('./controllers/pettyCash')
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -26,7 +25,6 @@ app.post('/requests/pettycash', requestRouter)
 app.post('/requests/vehicle', requestRouter)
 app.get('/approve/perdiem', requestRouter)
 app.get('/reject', requestRouter)
-app.post('/pettycash', pettyCashRouter)
 
 // handler of requests with unknown endpoint
 app.use(unknownEndpoint)

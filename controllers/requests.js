@@ -91,11 +91,11 @@ requestRouter.post('/requests/pettycash', async (req, res) => {
     try {
         await Client.connect()
         const db = Client.db('esforms')
-        const requestCollection = db.collection('requests')
+        const pettyCashCollection = db.collection('pettycash')
 
-        await requestCollection.insertOne(body)
+        await pettyCashCollection.insertOne(req.body)
         await sendMail(pettycashMsg(body['user'], body))
-        res.send(body)
+        return res.send(body)
     } catch (err) {
         console.log(err)
     } finally {
