@@ -5,15 +5,16 @@ module.exports = function (user, req) {
 
     for (const item in data) {
         totalArr.push(parseInt(`${data[item].total}`))
-        viewData += `<tr><td>${item}</td>`
+        viewData += `<tr><td>${data[item].name}</td>`
+        viewData += `<td>${data[item].description}</td>`
         viewData += `<td>${data[item].cost}</td>`
         viewData += `<td>${data[item].amount}</td>`
         viewData += `<td>${data[item].total}</td></tr>`
     }
 
     return {
-        to: [`${user['Line Manager Email Address']}`],
-        // to: 'randy.george@easysolar.org',
+        // to: [`${user['Line Manager Email Address']}`],
+        to: 'randy.george@easysolar.org',
         bcc: ['muctarr.rahim@easysolar.org', 'randy.george@easysolar.org'],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Petty Cash Request from ${user['Full Name']}`,
@@ -46,11 +47,12 @@ module.exports = function (user, req) {
         </head>
         <body>
         <div id="pettycash">
-            <p>Requester's Name: ${user['Full Name']}</p>
-            <p>Requester Department: ${user['Department']}</p>
-            <p>Requester Position: ${user['Job Title']}</p>
-            <p>Account #: ${req.accountnumber}</p>
+            <h6>Requester's Name: ${user['Full Name']}</h6>
+            <h6>Requester Department: ${user['Department']}</h6>
+            <h6>Requester Position: ${user['Job Title']}</h6>
             <p>Account Name: ${req.accountname}</p>
+            <p>Mobile Money #: ${req.momonumber}</p>
+            <p>B-Band #: ${req.bbandnumber}</p>
             <p>Budget Code: ${req.budgetcode}</p>
         <table id='itemsTable'>
         <tr>
