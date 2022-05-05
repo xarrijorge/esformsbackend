@@ -273,9 +273,6 @@ body {font-family: 'Lato', sans-serif;}
             parseInt(req.body.days) *
             parseInt(user.Meals.replace(/[^a-z0-9]/gi, ''))
         }</div>
-        <div style="font-family: inherit; text-align: inherit">Transportion Fare: 
-            ${parseInt(req.body.fare) || 0} 
-        </div>
 <div style="font-family: inherit; text-align: inherit"><br></div>
 <div style="font-family: inherit; text-align: inherit"><strong>Total: ${
             req.body.TOTALCLAIM
