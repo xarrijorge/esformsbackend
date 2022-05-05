@@ -25,6 +25,7 @@ app.post('/requests/perdiem', requestRouter)
 app.post('/requests/pettycash', requestRouter)
 app.post('/requests/vehicle', requestRouter)
 app.get('/approve/perdiem', approveRouter)
+app.get('/approve/pettycash', approveRouter)
 app.get('/reject', requestRouter)
 
 // handler of requests with unknown endpoint
