@@ -5,7 +5,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const { errorHandler, unknownEndpoint, accessControl } = require('./utils')
 const requestRouter = require('./controllers/requests')
-const approveRouter = require('./controllers/requests')
+const approveRouter = require('./controllers/approve')
 
 app.use(cors())
 app.use(bodyParser.json())
