@@ -1,14 +1,10 @@
 module.exports = function (user, req) {
-    let opsMail = 'vehicle-request@sl.easysolar.org'
-    if (user['Base Country'] === 'Liberia')
-        opsMail = 'operations@lib.easysolar.org'
-
     let financeMail =
         user['Base Country'] === 'Sierra Leone'
             ? 'dsafinance@sl.easysolar.org'
             : 'finance@lib.easysolar.org'
     return {
-        to: [financeMail, req.transportation === 'Yes' ? opsMail : null],
+        to: [financeMail],
         cc: [user['Employee Email Address']],
         bcc: ['randy.george@easysolar.org', 'muctarr.rahim@easysolar.org'],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
@@ -244,12 +240,6 @@ body {font-family: 'Lato', sans-serif;}
 <div style="font-family: inherit; text-align: inherit">Purpose: ${
             req.purpose
         }</div>
-<div style="font-family: inherit; text-align: inherit">Vehicle Needed: ${
-            req.vehicle
-        }</div>
-<div style="font-family: inherit; text-align: inherit">Travelling Party: ${
-            req.passengers
-        } People</div>
 <div style="font-family: inherit; text-align: inherit">MISC: ${
             req.requests
         }</div><div></div></div></td>
@@ -294,7 +284,7 @@ body {font-family: 'Lato', sans-serif;}
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="f612db9d-7563-4153-b3d5-8a0015929def.1.1.1" data-mc-module-version="2019-10-22">
     <tbody>
       <tr>
-        <td style="padding:18px 30px 18px 40px; line-height:28px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 28px">This request has been approve has been approved</span></div><div></div></div></td>
+        <td style="padding:18px 30px 18px 40px; line-height:28px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 28px">This request has approved</span></div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="10dfe38b-ab1a-4083-80ca-725cb09e3c1c.1">

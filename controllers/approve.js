@@ -2,7 +2,8 @@ const approveRouter = require('express').Router()
 const Client = require('../dbconnection')
 const sgMail = require('@sendgrid/mail')
 
-let approveMsg = require('../views/approval')
+let pdapproveMsg = require('../views/pdApproval')
+let pcapproveMsg = require('../views/pcApproval')
 
 // eslint-disable-next-line no-undef
 const EMAIL_URI = process.env.SG_URI
@@ -33,7 +34,7 @@ approveRouter.get('/approve/perdiem', async (req, res) => {
         const query = { _id: id }
         const request = await reqCollection.findOne(query)
         const user = request.user
-        await sendMail(approveMsg(user, request))
+        await sendMail(pdapproveMsg(user, request))
         return res.send(
             'You have approved this request. Relevant Parties will be notified.'
         )
@@ -50,12 +51,12 @@ approveRouter.get('/approve/pettycash', async (req, res) => {
     try {
         await Client.connect()
         const db = Client.db('esforms')
-        const reqCollection = db.collection('pettycash')
+        const Collection = db.collection('pettycash')
 
         const query = { _id: id }
-        const request = await reqCollection.findOne(query)
+        const request = await Collection.findOne(query)
         const user = request.user
-        // await sendMail(approveMsg(user, request))
+        await sendMail(pcapproveMsg(user, request))
         return res.send(
             'You have approved this request. Relevant Parties will be notified.'
         )
