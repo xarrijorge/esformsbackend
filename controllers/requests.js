@@ -5,6 +5,7 @@ const sgMail = require('@sendgrid/mail')
 let perdiemMsg = require('../views/perdiem')
 let approveMsg = require('../views/approval')
 let pettycashMsg = require('../views/pettycash')
+// let CreatePDF = require('../CreatePDF')
 
 // eslint-disable-next-line no-undef
 const EMAIL_URI = process.env.SG_URI
@@ -78,6 +79,7 @@ requestRouter.post('/requests/perdiem', async (req, res) => {
         const requestCollection = db.collection('requests')
 
         await requestCollection.insertOne(body)
+        // await CreatePDF('views/perdiem.js', user)
         await sendMail(perdiemMsg(user, req, body._id))
         res.send(body)
     } catch (err) {
@@ -94,7 +96,7 @@ requestRouter.post('/requests/pettycash', async (req, res) => {
         const pettyCashCollection = db.collection('pettycash')
 
         await pettyCashCollection.insertOne(req.body)
-        await sendMail(pettycashMsg(body['user'], body))
+        await sendMail(pettycashMsg(body['user'], body, body._id))
         return res.send(body)
     } catch (err) {
         console.log(err)
@@ -107,6 +109,11 @@ requestRouter.post('/requests/pettycash', async (req, res) => {
 requestRouter.post('/requests/vehicle', async (req, res) => {
     const body = req.body
     res.send(body)
+})
+
+requestRouter.get('/pdf', (req, res) => {
+    // CreatePDF('/esformsbackend/views/pettycash.js')
+    return res.send('PDF created')
 })
 
 module.exports = requestRouter
