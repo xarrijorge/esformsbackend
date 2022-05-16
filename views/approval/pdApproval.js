@@ -10,7 +10,7 @@ module.exports = function (user, req) {
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Approved PerDiem Rcequest from ${user['Full Name']}`,
         html: `
-       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -165,19 +165,21 @@ body {font-family: 'Lato', sans-serif;}
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="ef0f9e06-1b02-4b22-b5e8-dc8f6bb9b3b1" data-mc-module-version="2019-10-22">
     <tbody>
       <tr>
-        <td style="padding:50px 20px 10px 20px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 28px; font-family: inherit">Request Approval</span></div><div></div></div></td>
+        <td style="padding:50px 20px 10px 20px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 28px; font-family: inherit">Request Confirmation</span></div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="ef0f9e06-1b02-4b22-b5e8-dc8f6bb9b3b1.1.1" data-mc-module-version="2019-10-22">
     <tbody>
       <tr>
-        <td style="padding:20px 20px 10px 20px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div>
-<div style="font-family: inherit; text-align: center"><br></div>
-<div style="font-family: inherit; text-align: center">Request approved by ${
+        <td style="padding:20px 20px 10px 20px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center">Hello ${
             user['Line Manager Name ']
+        }</div>
+<div style="font-family: inherit; text-align: center"><br></div>
+<div style="font-family: inherit; text-align: center">You have a Per Diem Request from ${
+            user['Full Name']
         } - ${
-            user['Line Manager Email Address']
-        }, awaiting your action</div><div></div></div></td>
+            user['Job Title']
+        }, awaiting your approval</div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="8395333d-62e9-4e61-957d-72d0eefc1a4f">
@@ -232,16 +234,18 @@ body {font-family: 'Lato', sans-serif;}
     <tbody>
       <tr>
         <td style="padding:30px 20px 30px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Travelling to:  ${
-            req.destination
+            req.body.destination
         }</div>
 <div style="font-family: inherit; text-align: inherit">Trip Duration: ${
-            req.nights
-        } Nights & ${req.days} Days</div>
+            req.body.nights
+        } Nights & ${req.body.days} Days</div>
 <div style="font-family: inherit; text-align: inherit">Purpose: ${
-            req.purpose
+            req.body.purpose
         }</div>
+
+
 <div style="font-family: inherit; text-align: inherit">MISC: ${
-            req.requests
+            req.body.requests
         }</div><div></div></div></td>
       </tr>
     </tbody>
@@ -269,22 +273,23 @@ body {font-family: 'Lato', sans-serif;}
     <tbody>
       <tr>
         <td style="padding:30px 20px 30px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Accommodation: ${
-            parseInt(req.nights) *
+            parseInt(req.body.nights) *
             parseInt(user.Accommodation.replace(/[^a-z0-9]/gi, ''))
         } </div>
 <div style="font-family: inherit; text-align: inherit">Meals: ${
-            parseInt(req.days) * parseInt(user.Meals.replace(/[^a-z0-9]/gi, ''))
+            parseInt(req.body.days) *
+            parseInt(user.Meals.replace(/[^a-z0-9]/gi, ''))
         }</div>
 <div style="font-family: inherit; text-align: inherit"><br></div>
 <div style="font-family: inherit; text-align: inherit"><strong>Total: ${
-            req.TOTALCLAIM
+            req.body.TOTALCLAIM
         }</strong></div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="f612db9d-7563-4153-b3d5-8a0015929def.1.1.1" data-mc-module-version="2019-10-22">
     <tbody>
       <tr>
-        <td style="padding:18px 30px 18px 40px; line-height:28px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 28px">This request has approved</span></div><div></div></div></td>
+        <td style="padding:18px 30px 18px 40px; line-height:28px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 28px">This Request has been Approved!</span></div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="10dfe38b-ab1a-4083-80ca-725cb09e3c1c.1">
@@ -292,44 +297,6 @@ body {font-family: 'Lato', sans-serif;}
       <tr>
         <td style="padding:0px 0px 30px 0px;" role="module-content" bgcolor="">
         </td>
-      </tr>
-    </tbody>
-  </table><table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" role="module" data-type="columns" style="padding:0px 0px 0px 0px;" bgcolor="#FFFFFF" data-distribution="1,1">
-    <tbody>
-      <tr role="module-content">
-        <td height="100%" valign="top"><table width="290" style="width:290px; border-spacing:0; border-collapse:collapse; margin:0px 10px 0px 0px;" cellpadding="0" cellspacing="0" align="left" border="0" bgcolor="" class="column column-0">
-      <tbody>
-        <tr>
-          <td style="padding:0px;margin:0px;border-spacing:0;"><table border="0" cellpadding="0" cellspacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed;" width="100%" data-muid="c588d3be-b94e-451d-b994-c67321eff57f">
-      <tbody>
-        <tr>
-          <td align="center" bgcolor="" class="outer-td" style="padding:0px 0px 0px 0px;">
-            <table border="0" cellpadding="0" cellspacing="0" class="wrapper-mobile" style="text-align:center;">
-              
-          </td>
-        </tr>
-      </tbody>
-    </table></td>
-        </tr>
-      </tbody>
-    </table><table width="290" style="width:290px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 10px;" cellpadding="0" cellspacing="0" align="left" border="0" bgcolor="" class="column column-1">
-      <tbody>
-        <tr>
-          <td style="padding:0px;margin:0px;border-spacing:0;"><table border="0" cellpadding="0" cellspacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed;" width="100%" data-muid="c588d3be-b94e-451d-b994-c67321eff57f.1">
-      <tbody>
-        <tr>
-          <td align="center" bgcolor="" class="outer-td" style="padding:0px 0px 0px 0px;">
-            <table border="0" cellpadding="0" cellspacing="0" class="wrapper-mobile" style="text-align:center;">
-                
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table></td>
-        </tr>
-      </tbody>
-    </table></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="0a0f7040-0a2f-4749-8f52-03f4bfb4f161">
@@ -360,6 +327,7 @@ body {font-family: 'Lato', sans-serif;}
         </div>
       </center>
     </body>
-</html> `,
+</html>
+       `,
     }
 }

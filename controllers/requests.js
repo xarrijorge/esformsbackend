@@ -53,12 +53,13 @@ requestRouter.post('/requests/perdiem', async (req, res) => {
         await requestCollection.insertOne(body)
         // await CreatePDF('views/perdiem.js', user)
         await sendMail(perdiemMsg(user, req, body._id))
-        res.send(body)
+        return res.send(body)
     } catch (err) {
         console.log(err)
     } finally {
         await Client.close()
     }
+    res.send(body)
 })
 
 requestRouter.post('/requests/pettycash', async (req, res) => {
