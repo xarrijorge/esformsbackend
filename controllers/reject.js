@@ -1,10 +1,8 @@
-const approveRouter = require('express').Router()
+const rejectRouter = require('express').Router()
 const Client = require('../dbconnection')
 const sgMail = require('@sendgrid/mail')
 
-let pdapproveMsg = require('../views/approval/pdApproval')
-let pcapproveMsg = require('../views/approval/pcApproval')
-let vhapproveMsg = require('../views/approval/vhApproval')
+let denialMsg = require('../views/rejection')
 
 // eslint-disable-next-line no-undef
 const EMAIL_URI = process.env.SG_URI
@@ -25,7 +23,7 @@ const sendMail = async (msg) => {
 
 const ObjectId = require('mongodb').ObjectId
 
-approveRouter.get('/approve/perdiem', async (req, res) => {
+rejectRouter.get('/reject/perdiem', async (req, res) => {
     const id = ObjectId(`${req.query.id}`)
     try {
         await Client.connect()
@@ -35,9 +33,9 @@ approveRouter.get('/approve/perdiem', async (req, res) => {
         const query = { _id: id }
         const request = await Collection.findOne(query)
         const user = request.user
-        await sendMail(pdapproveMsg(user, request))
+        await sendMail(denialMsg(user, request))
         return res.send(
-            'You have approved this request. Relevant Parties will be notified.'
+            'You have denied this request. Relevant Parties will be notified.'
         )
     } catch (err) {
         console.log(err)
@@ -48,7 +46,7 @@ approveRouter.get('/approve/perdiem', async (req, res) => {
     res.send(id)
 })
 
-approveRouter.get('/approve/pettycash', async (req, res) => {
+rejectRouter.get('/reject/pettycash', async (req, res) => {
     const id = ObjectId(`${req.query.id}`)
     try {
         await Client.connect()
@@ -58,9 +56,9 @@ approveRouter.get('/approve/pettycash', async (req, res) => {
         const query = { _id: id }
         const request = await Collection.findOne(query)
         const user = request.user
-        await sendMail(pcapproveMsg(user, request))
+        await sendMail(denialMsg(user, request))
         return res.send(
-            'You have approved this request. Relevant Parties will be notified.'
+            'You have denied this request. Relevant Parties will be notified.'
         )
     } catch (err) {
         console.log(err)
@@ -71,7 +69,7 @@ approveRouter.get('/approve/pettycash', async (req, res) => {
     res.send(id)
 })
 
-approveRouter.get('/approve/vehicle', async (req, res) => {
+rejectRouter.get('/reject/vehicle', async (req, res) => {
     const id = ObjectId(`${req.query.id}`)
     try {
         await Client.connect()
@@ -81,9 +79,9 @@ approveRouter.get('/approve/vehicle', async (req, res) => {
         const query = { _id: id }
         const request = await Collection.findOne(query)
         const user = request.user
-        await sendMail(vhapproveMsg(user, request))
+        await sendMail(denialMsg(user, request))
         return res.send(
-            'You have approved this request. Relevant Parties will be notified.'
+            'You have denied this request. Relevant Parties will be notified.'
         )
     } catch (err) {
         console.log(err)
@@ -94,4 +92,4 @@ approveRouter.get('/approve/vehicle', async (req, res) => {
     res.send(id)
 })
 
-module.exports = approveRouter
+module.exports = rejectRouter

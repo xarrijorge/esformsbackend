@@ -240,12 +240,6 @@ body {font-family: 'Lato', sans-serif;}
 <div style="font-family: inherit; text-align: inherit">Purpose: ${
             req.purpose
         }</div>
-<div style="font-family: inherit; text-align: inherit">Vehicle Needed: ${
-            req.vehicle
-        }</div>
-<div style="font-family: inherit; text-align: inherit">Travelling Party: ${
-            req.passengers
-        } People</div>
 <div style="font-family: inherit; text-align: inherit">MISC: ${
             req.requests
         }</div><div></div></div></td>

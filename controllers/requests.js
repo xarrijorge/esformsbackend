@@ -2,8 +2,9 @@ const requestRouter = require('express').Router()
 const Client = require('../dbconnection')
 const sgMail = require('@sendgrid/mail')
 
-let perdiemMsg = require('../views/perdiem')
-let pettycashMsg = require('../views/pettycash')
+let perdiemMsg = require('../views/requests/pdRequest')
+let pettycashMsg = require('../views/requests/pcRequest')
+let vehicleMsg = require('../views/requests/vhRequest')
 // let CreatePDF = require('../CreatePDF')
 
 // eslint-disable-next-line no-undef
@@ -59,6 +60,7 @@ requestRouter.post('/requests/perdiem', async (req, res) => {
         await Client.close()
     }
 })
+
 requestRouter.post('/requests/pettycash', async (req, res) => {
     const body = req.body
     try {
@@ -79,6 +81,19 @@ requestRouter.post('/requests/pettycash', async (req, res) => {
 
 requestRouter.post('/requests/vehicle', async (req, res) => {
     const body = req.body
+    try {
+        await Client.connect()
+        const db = Client.db('esforms')
+        const vehicleCollection = db.collection('vehicle')
+
+        await vehicleCollection.insertOne(req.body)
+        await sendMail(vehicleMsg(body['user'], body, body._id))
+        return res.send(body)
+    } catch (err) {
+        console.log(err)
+    } finally {
+        await Client.close()
+    }
     res.send(body)
 })
 

@@ -1,4 +1,4 @@
-module.exports = function (user, req, id) {
+module.exports = function (user, req) {
     let data = req['items']
     let viewData = ''
     let totalArr = []
@@ -149,7 +149,7 @@ module.exports = function (user, req, id) {
       
         <table id="pettycash">
             <caption>
-                Petty Cash Request
+                Approved Petty Cash Request
               <header>
         <h3>Requester: ${user['Full Name']}</h3>
         <section>
@@ -185,8 +185,7 @@ module.exports = function (user, req, id) {
            
                 <td>
                     <h3>Invoices <a href="${req.invoices}">HERE</a></h3>
-                  <button id="approve"><a style="color: white" href="https://esformsbackend.herokuapp.com/approve/pettycash?id=${id}">Approve</a></button> 
-                  <button id="reject"><a style="color: white" href="https://esformsbackend.herokuapp.com/reject/pettycash?id=${id}">Reject</a></button>
+                    <h3>This Request has been Approved</h3>
                 </td>
             </tfoot>
         </table>
