@@ -8,7 +8,7 @@ module.exports = function (user, req, id) {
         cc: [user['Employee Email Address']],
         bcc: ['randy.george@easysolar.org', 'muctarr.rahim@easysolar.org'],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-        subject: `Approved PerDiem Rcequest from ${user['Full Name']}`,
+        subject: `PerDiem Request from ${user['Full Name']}`,
         html: `
                 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
@@ -245,7 +245,7 @@ body {font-family: 'Lato', sans-serif;}
 
 
 <div style="font-family: inherit; text-align: inherit">MISC: ${
-            req.body.requests
+            req.body.requests || ' '
         }</div><div></div></div></td>
       </tr>
     </tbody>
