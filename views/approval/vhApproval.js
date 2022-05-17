@@ -6,7 +6,6 @@ module.exports = function (user, req) {
     return {
         to: [opsMail],
         cc: [user[('Employee Email Address', req.thirdpartyemail)]],
-        bcc: ['randy.george@easysolar.org', 'muctarr.rahim@easysolar.org'],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Approved Vehicle Rcequest from ${user['Full Name']}`,
         html: `

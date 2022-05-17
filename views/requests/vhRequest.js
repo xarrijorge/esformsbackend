@@ -84,8 +84,8 @@ module.exports = function (user, req, id) {
   </section>
 
   <h3>Route Distribution Plan <a href=${req.invoices}>HERE</a></h3>
-  <button id="approve"><a href="https://esformsbackend.herokuapp.com/approve?id=${id}">Approve</a></button>
-  <button id="reject"><a href="https://esformsbackend.herokuapp.com/reject?id=${id}">Reject</a></button>
+  <button id="approve"><a href="https://esformsbackend.herokuapp.com/approve/vehicle?id=${id}">Approve</a></button>
+  <button id="reject"><a href="https://esformsbackend.herokuapp.com/reject/vehicle?id=${id}">Reject</a></button>
   </td>
   </tfoot>
   </table>

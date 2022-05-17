@@ -1,12 +1,11 @@
 module.exports = function (user, req, id) {
-    let financeMail =
-        user['Base Country'] === 'Sierra Leone'
-            ? 'dsafinance@sl.easysolar.org'
-            : 'finance@lib.easysolar.org'
+    // let financeMail =
+    //     user['Base Country'] === 'Sierra Leone'
+    //         ? 'dsafinance@sl.easysolar.org'
+    //         : 'finance@lib.easysolar.org'
     return {
-        to: [financeMail],
-        cc: [user['Employee Email Address']],
-        bcc: ['randy.george@easysolar.org', 'muctarr.rahim@easysolar.org'],
+        to: [user['Line Manager Email Address']],
+        bcc: ['muctarr.rahim@easysolar.org'],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `PerDiem Request from ${user['Full Name']}`,
         html: `

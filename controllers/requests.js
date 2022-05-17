@@ -42,17 +42,34 @@ requestRouter.get('/users', async (req, res) => {
     }
 })
 
-requestRouter.post('/requests/perdiem', async (req, res) => {
-    const body = { ...req.body, user: { ...user }, submittedOn: new Date() }
+// requestRouter.post('/requests/perdiem', async (req, res) => {
+//     const body = { ...req.body, user: { ...req.user }, submittedOn: new Date() }
 
+//     try {
+//         await Client.connect()
+//         const db = Client.db('esforms')
+//         const requestCollection = db.collection('requests')
+
+//         await requestCollection.insertOne(body)
+//         // await CreatePDF('views/perdiem.js', user)
+//         await sendMail(perdiemMsg(body['user'], req, body._id))
+//         return res.send(body)
+//     } catch (err) {
+//         console.log(err)
+//     } finally {
+//         await Client.close()
+//     }
+//     res.send(body)
+// })
+requestRouter.post('/requests/perdiem', async (req, res) => {
+    const body = req.body
     try {
         await Client.connect()
         const db = Client.db('esforms')
         const requestCollection = db.collection('requests')
 
-        await requestCollection.insertOne(body)
-        // await CreatePDF('views/perdiem.js', user)
-        await sendMail(perdiemMsg(user, req, body._id))
+        await requestCollection.insertOne(req.body)
+        await sendMail(perdiemMsg(body['user'], req, body._id))
         return res.send(body)
     } catch (err) {
         console.log(err)

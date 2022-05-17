@@ -20,9 +20,7 @@ module.exports = function (user, req, id) {
     //         : director
 
     return {
-        to: [user['Employee Email Address']],
-        // to: 'randy.george@easysolar.org',
-        bcc: ['muctarr.rahim@easysolar.org', 'randy.george@easysolar.org'],
+        to: [user['Line Manager Email Address']],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Petty Cash Request from ${user['Full Name']}`,
         html: `
@@ -163,8 +161,8 @@ module.exports = function (user, req, id) {
     <tfoot>
       <td>
         <h3>Invoices <a href=${req.invoices}>HERE</a></h3>
-        <button id="approve"><a href="https://esformsbackend.herokuapp.com/approve?id=${id}">Approve</a></button> 
-        <button id="reject"><a href="https://esformsbackend.herokuapp.com/reject?id=${id}">Reject</a></button>
+        <button id="approve"><a href="https://esformsbackend.herokuapp.com/approve/pettycash?id=${id}">Approve</a></button> 
+        <button id="reject"><a href="https://esformsbackend.herokuapp.com/reject/pettycash?id=${id}">Reject</a></button>
       </td>
     </tfoot>
   </table>

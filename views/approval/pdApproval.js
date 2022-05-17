@@ -6,7 +6,6 @@ module.exports = function (user, req) {
     return {
         to: [financeMail],
         cc: [user['Employee Email Address']],
-        bcc: ['randy.george@easysolar.org', 'muctarr.rahim@easysolar.org'],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Approved PerDiem Rcequest from ${user['Full Name']}`,
         html: `
@@ -234,18 +233,18 @@ body {font-family: 'Lato', sans-serif;}
     <tbody>
       <tr>
         <td style="padding:30px 20px 30px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Travelling to:  ${
-            req.body.destination
+            req.destination
         }</div>
 <div style="font-family: inherit; text-align: inherit">Trip Duration: ${
-            req.body.nights
-        } Nights & ${req.body.days} Days</div>
+            req.nights
+        } Nights & ${req.days} Days</div>
 <div style="font-family: inherit; text-align: inherit">Purpose: ${
-            req.body.purpose
+            req.purpose
         }</div>
 
 
 <div style="font-family: inherit; text-align: inherit">MISC: ${
-            req.body.requests
+            req.requests
         }</div><div></div></div></td>
       </tr>
     </tbody>
@@ -273,16 +272,16 @@ body {font-family: 'Lato', sans-serif;}
     <tbody>
       <tr>
         <td style="padding:30px 20px 30px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Accommodation: ${
-            parseInt(req.body.nights) *
+            parseInt(req.nights) *
             parseInt(user.Accommodation.replace(/[^a-z0-9]/gi, ''))
         } </div>
 <div style="font-family: inherit; text-align: inherit">Meals: ${
-            parseInt(req.body.days) *
+            parseInt(req['days']) *
             parseInt(user.Meals.replace(/[^a-z0-9]/gi, ''))
         }</div>
 <div style="font-family: inherit; text-align: inherit"><br></div>
 <div style="font-family: inherit; text-align: inherit"><strong>Total: ${
-            req.body.TOTALCLAIM
+            req.TOTALCLAIM
         }</strong></div><div></div></div></td>
       </tr>
     </tbody>
