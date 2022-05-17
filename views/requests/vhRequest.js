@@ -4,9 +4,7 @@ module.exports = function (user, req, id) {
             ? 'vehicle-request@sl.easysolar.org'
             : 'operations@lib.easysolar.org'
     return {
-        to: [opsMail],
-        cc: [user['Employee Email Address']],
-        bcc: ['randy.george@easysolar.org', 'muctarr.rahim@easysolar.org'],
+        to: [user['Line Manager Email Address']],
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Vehicle Rcequest from ${user['Full Name']}`,
         html: `
