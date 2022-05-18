@@ -21,7 +21,7 @@ module.exports = function (user, req) {
 
     return {
         to: [user['Employee Email Address']],
-        bcc: ['muctarr.rahim@easysolar.org'],
+        bcc: 'request-tracker@easysolar.org',
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Approved Petty Cash Request from ${user['Full Name']}`,
         html: `

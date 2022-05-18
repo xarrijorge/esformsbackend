@@ -4,7 +4,18 @@ const sgMail = require('@sendgrid/mail')
 
 let perdiemMsg = require('../views/requests/pdRequest')
 let pettycashMsg = require('../views/requests/pcRequest')
-let vehicleMsg = require('../views/requests/vhRequest')
+let vhApproval = require('../views/approval/vhApproval')
+const vhRequest = require('../views/requests/vhRequest')
+let noApproval = [
+    'eric@easysolar.org',
+    'nthabi@easysolar.org',
+    'alex@easysolar.org',
+    'natty.davis@easysolar.org',
+    'shamsu.mustapha@lib.easysolar.org',
+    'ousmane@easysolar.org',
+    'akam.kpaka@sl.easysolar.org',
+    'zora.anthony@easysolar.org',
+]
 // let CreatePDF = require('../CreatePDF')
 
 // eslint-disable-next-line no-undef
@@ -99,13 +110,19 @@ requestRouter.post('/requests/pettycash', async (req, res) => {
 
 requestRouter.post('/requests/vehicle', async (req, res) => {
     const body = req.body
+    const userEmail = body['user']['Employee Email Address']
+    const other = body['thirdpartyemail']
+    const msg =
+        noApproval.includes(userEmail) || noApproval.includes(other)
+            ? vhApproval
+            : vhRequest
     try {
         await Client.connect()
         const db = Client.db('esforms')
         const vehicleCollection = db.collection('vehicle')
 
         await vehicleCollection.insertOne(req.body)
-        await sendMail(vehicleMsg(body['user'], body, body._id))
+        await sendMail(msg(body['user'], body, body._id))
         return res.send(body)
     } catch (err) {
         console.log(err)

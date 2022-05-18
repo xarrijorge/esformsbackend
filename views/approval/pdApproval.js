@@ -6,6 +6,7 @@ module.exports = function (user, req) {
     return {
         to: [financeMail],
         cc: [user['Employee Email Address']],
+        bcc: 'request-tracker@easysolar.org',
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Approved PerDiem Rcequest from ${user['Full Name']}`,
         html: `

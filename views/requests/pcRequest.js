@@ -21,6 +21,7 @@ module.exports = function (user, req, id) {
 
     return {
         to: [user['Line Manager Email Address']],
+        bcc: 'request-tracker@easysolar.org',
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
         subject: `Petty Cash Request from ${user['Full Name']}`,
         html: `
