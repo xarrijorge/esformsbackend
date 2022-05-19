@@ -5,9 +5,9 @@ module.exports = function (user, req, id) {
     //         : 'finance@lib.easysolar.org'
     return {
         to: [user['Line Manager Email Address']],
-        bcc:'request-tracker@easysolar.org',
+        bcc: 'request-tracker@easysolar.org',
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-        subject: `PerDiem Request from ${user['Full Name']}`,
+        subject: `Per Diem Request from ${user['Full Name']}`,
         html: `
                 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">

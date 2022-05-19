@@ -5,10 +5,10 @@ module.exports = function (user, req) {
             : 'operations@lib.easysolar.org'
     return {
         to: [opsMail],
-        cc: [user[('Employee Email Address', req.thirdpartyemail)]],
+        cc: [user['Employee Email Address']],
         bcc: 'request-tracker@easysolar.org',
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-        subject: `Approved Vehicle Rcequest from ${user['Full Name']}`,
+        subject: `Approved Vehicle Request from ${user['Full Name']}`,
         html: `
         <!DOCTYPE html>
 <html lang="en">
@@ -75,15 +75,15 @@ module.exports = function (user, req) {
     <h4>Position: ${user['Job Title']}</h4>
   </header>
 
-  <section>
-    <h3>Requesting for: ${req.thirdpartyname}</h3>
+ <section>
+    <h3>Requesting for: ${req.thirdpartyname || 'self'}</h3>
     <h3>Destination: ${req.destination}</h3>
     <h3>Departure Date: ${req.departuredate}</h3>
     <h3>Return Date: ${req.returndate}</h3>
-    <h3>Vehicle Reqested: ${req.vehicle}</h3>
+    <h3>Vehicle Reqested: ${req.vehicle || 'Any Available Option'}</h3>
   </section>
 
-  <h3>Route Distribution Plan <a href=${req.invoices}>HERE</a></h3>
+  <h3>Route Distribution Plan <a href=${req.routeplan}>HERE</a></h3>
   <h3>This Request has been Approved!</h3>
   </td>
   </tfoot>

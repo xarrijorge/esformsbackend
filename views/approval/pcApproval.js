@@ -162,7 +162,7 @@ module.exports = function (user, req) {
     <tfoot>
       <td>
         <h3>Invoices <a href=${req.invoices}>HERE</a></h3>
-        <h3>This Requested has been Approved!</h3>
+        <h3>This Request has been Approved!</h3>
       </td>
     </tfoot>
   </table>
