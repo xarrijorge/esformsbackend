@@ -281,8 +281,8 @@ body {font-family: 'Lato', sans-serif;}
         }</div>
 <div style="font-family: inherit; text-align: inherit"><br></div>
 <div style="font-family: inherit; text-align: inherit"><strong>Total: ${
-            req.body.TOTALCLAIM
-        }</strong></div><div></div></div></td>
+            req.currency
+        }${req.body.TOTALCLAIM}</strong></div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="f612db9d-7563-4153-b3d5-8a0015929def.1.1.1" data-mc-module-version="2019-10-22">
