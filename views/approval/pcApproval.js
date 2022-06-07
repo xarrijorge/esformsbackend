@@ -1,15 +1,20 @@
 module.exports = function (user, req) {
     let data = req['items']
     let viewData = ''
+
     let totalArr = []
 
+    let i = 1
     for (const item in data) {
         totalArr.push(parseInt(`${data[item].total}`))
-        viewData += `<tr><td>${data[item].name}</td>`
-        viewData += `<td>${data[item].description}</td>`
+        viewData += `<tr style="background-color:${
+            i % 2 !== 0 ? 'white' : 'lightsteelblue'
+        }"><td>${data[item].name}</td>`
+        viewData += `<td>${(data[item].description, i)}</td>`
         viewData += `<td>${data[item].cost}</td>`
         viewData += `<td>${data[item].amount}</td>`
         viewData += `<td>${data[item].total}</td></tr>`
+        i++
     }
 
     // let director = user['Director']
@@ -32,7 +37,7 @@ module.exports = function (user, req) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ES PettyCash Form</title>
-  <style>
+ <style>
     body,
     p,
     div {
@@ -95,6 +100,9 @@ module.exports = function (user, req) {
       list-style-type: decimal !important;
     }
 
+    #pettycash{
+      margin-top: 20px;
+    }
     #pettycash td,
     #pettycash th {
       text-align: center;
@@ -179,7 +187,6 @@ module.exports = function (user, req) {
       font-family: 'Lato', sans-serif;
     }
   </style>
-  <!--End Head user entered-->
 </head>
 
 <body>
@@ -302,22 +309,22 @@ module.exports = function (user, req) {
                                     <td style="padding:30px 20px 0px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content">
                                       <div>
                                         <div style="font-family: inherit; text-align: inherit">Bank Name: ${
-                                            req.body.destination
+                                            req.bankname || 'N/A'
                                         } | Bank Account Name: ${
-            req.body.purpose
+            req.accountname || 'N/A'
         }
                                           }</div>
 
                                         <div style="font-family: inherit; text-align: inherit">Mobile Money #: ${
-                                            req.momonumber
+                                            req.momonumber || 'N/A'
                                         } | BBAN #: ${
-            req.body.destination
+            req.bbandnumber || 'N/A'
         }</div>
                                         <div style="font-family: inherit; text-align: inherit">Department: ${
                                             req.department
                                         } | Request Currency: ${
             req.currency
-        }</div>
+        } Budget Code: ${req.budgetcode}</div>
 <h3>Invoices <a href=${req.invoices}>HERE</a></h3>
                                       </div>
                                     </td>
@@ -351,7 +358,7 @@ module.exports = function (user, req) {
                                   </tr>
                                 </tbody>
                               </table>
-                              <table class="module" id="pettycash" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed; padding: 0 20px;" data-muid="ef0f9e06-1b02-4b22-b5e8-dc8f6bb9b3b1.1.1.1.1.1" data-mc-module-version="2019-10-22">
+                              <table id="pettycash" style="margin-top:20px">
                                 <thead>
                                   <tr>
                                     <th>Name</th>

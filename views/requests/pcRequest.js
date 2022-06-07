@@ -3,13 +3,17 @@ module.exports = function (user, req, id) {
     let viewData = ''
     let totalArr = []
 
+    let i = 1
     for (const item in data) {
         totalArr.push(parseInt(`${data[item].total}`))
-        viewData += `<tr><td>${data[item].name}</td>`
-        viewData += `<td>${data[item].description}</td>`
+        viewData += `<tr style="background-color:${
+            i % 2 !== 0 ? 'white' : 'lightsteelblue'
+        }"><td>${data[item].name}</td>`
+        viewData += `<td>${(data[item].description, i)}</td>`
         viewData += `<td>${data[item].cost}</td>`
         viewData += `<td>${data[item].amount}</td>`
         viewData += `<td>${data[item].total}</td></tr>`
+        i++
     }
 
     // let director = user['Director']
@@ -95,6 +99,9 @@ module.exports = function (user, req, id) {
       list-style-type: decimal !important;
     }
 
+    #pettycash{
+      margin-top: 20px;
+    }
     #pettycash td,
     #pettycash th {
       text-align: center;
@@ -302,24 +309,23 @@ module.exports = function (user, req, id) {
                                     <td style="padding:30px 20px 0px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content">
                                       <div>
                                         <div style="font-family: inherit; text-align: inherit">Bank Name: ${
-                                            req.body.destination
+                                            req.bankname || 'N/A'
                                         } | Bank Account Name: ${
-            req.body.purpose
-        } }</div>
+            req.accountname || 'N/A'
+        }
+                                          }</div>
 
                                         <div style="font-family: inherit; text-align: inherit">Mobile Money #: ${
-                                            req.momonumber
+                                            req.momonumber || 'N/A'
                                         } | BBAN #: ${
-            req.body.destination
+            req.bbandnumber || 'N/A'
         }</div>
                                         <div style="font-family: inherit; text-align: inherit">Department: ${
                                             req.department
                                         } | Request Currency: ${
             req.currency
-        }</div>
+        } | Budget Code: ${req.budgetcode}</div>
 <h3>Invoices <a href=${req.invoices}>HERE</a></h3>
-                                      </div>
-                                    </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -362,7 +368,7 @@ module.exports = function (user, req, id) {
                                 </thead>
                                 <tbody>
                                   ${viewData}
-                                  <tr>
+                                  <tr style="background-color:royalblue; font-weight:bold">
                                     <td> Total</td>
                                     <td>-</td>
                                     <td>-</td>
