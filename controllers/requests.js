@@ -1,5 +1,5 @@
 const requestRouter = require('express').Router()
-const Client = require('../dbconnection')
+const Mongo_Mongo_Client = require('../helpers/dbconnection')
 const sgMail = require('@sendgrid/mail')
 
 let perdiemMsg = require('../views/requests/pdRequest')
@@ -16,8 +16,6 @@ let noApproval = [
     'akam.kpaka@sl.easysolar.org',
     'zora.anthony@easysolar.org',
 ]
-// let CreatePDF = require('../CreatePDF')
-
 // eslint-disable-next-line no-undef
 const EMAIL_URI = process.env.SG_URI
 sgMail.setApiKey(EMAIL_URI)
@@ -39,8 +37,8 @@ let user = {}
 
 requestRouter.get('/users', async (req, res) => {
     try {
-        await Client.connect()
-        const db = Client.db('esforms')
+        await Mongo_Mongo_Client.connect()
+        const db = Mongo_Mongo_Client.db('esforms')
         const usersCollection = db.collection('users')
 
         const query = { 'Employee Email Address': `${req.query.email}` }
@@ -49,7 +47,7 @@ requestRouter.get('/users', async (req, res) => {
     } catch (err) {
         console.log(err)
     } finally {
-        await Client.close()
+        await Mongo_Mongo_Client.close()
     }
 })
 
@@ -57,8 +55,8 @@ requestRouter.get('/users', async (req, res) => {
 //     const body = { ...req.body, user: { ...req.user }, submittedOn: new Date() }
 
 //     try {
-//         await Client.connect()
-//         const db = Client.db('esforms')
+//         await Mongo_Client.connect()
+//         const db = Mongo_Client.db('esforms')
 //         const requestCollection = db.collection('requests')
 
 //         await requestCollection.insertOne(body)
@@ -68,15 +66,15 @@ requestRouter.get('/users', async (req, res) => {
 //     } catch (err) {
 //         console.log(err)
 //     } finally {
-//         await Client.close()
+//         await Mongo_Client.close()
 //     }
 //     res.send(body)
 // })
 requestRouter.post('/requests/perdiem', async (req, res) => {
     const body = req.body
     try {
-        await Client.connect()
-        const db = Client.db('esforms')
+        await Mongo_Mongo_Client.connect()
+        const db = Mongo_Mongo_Client.db('esforms')
         const requestCollection = db.collection('requests')
 
         await requestCollection.insertOne(req.body)
@@ -85,7 +83,7 @@ requestRouter.post('/requests/perdiem', async (req, res) => {
     } catch (err) {
         console.log(err)
     } finally {
-        await Client.close()
+        await Mongo_Mongo_Client.close()
     }
     res.send(body)
 })
@@ -93,8 +91,8 @@ requestRouter.post('/requests/perdiem', async (req, res) => {
 requestRouter.post('/requests/pettycash', async (req, res) => {
     const body = req.body
     try {
-        await Client.connect()
-        const db = Client.db('esforms')
+        await Mongo_Mongo_Client.connect()
+        const db = Mongo_Mongo_Client.db('esforms')
         const pettyCashCollection = db.collection('pettycash')
 
         await pettyCashCollection.insertOne(req.body)
@@ -103,7 +101,7 @@ requestRouter.post('/requests/pettycash', async (req, res) => {
     } catch (err) {
         console.log(err)
     } finally {
-        await Client.close()
+        await Mongo_Mongo_Client.close()
     }
     res.send(body)
 })
@@ -117,8 +115,8 @@ requestRouter.post('/requests/vehicle', async (req, res) => {
             ? vhApproval
             : vhRequest
     try {
-        await Client.connect()
-        const db = Client.db('esforms')
+        await Mongo_Mongo_Client.connect()
+        const db = Mongo_Mongo_Client.db('esforms')
         const vehicleCollection = db.collection('vehicle')
 
         await vehicleCollection.insertOne(req.body)
@@ -127,7 +125,7 @@ requestRouter.post('/requests/vehicle', async (req, res) => {
     } catch (err) {
         console.log(err)
     } finally {
-        await Client.close()
+        await Mongo_Mongo_Client.close()
     }
     res.send(body)
 })

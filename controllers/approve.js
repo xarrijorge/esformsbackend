@@ -1,5 +1,5 @@
 const approveRouter = require('express').Router()
-const Client = require('../dbconnection')
+const Mongo_Client = require('../helpers/dbconnection')
 const sgMail = require('@sendgrid/mail')
 
 let pdapproveMsg = require('../views/approval/pdApproval')
@@ -28,8 +28,8 @@ const ObjectId = require('mongodb').ObjectId
 approveRouter.get('/approve/perdiem', async (req, res) => {
     const id = ObjectId(`${req.query.id}`)
     try {
-        await Client.connect()
-        const db = Client.db('esforms')
+        await Mongo_Client.connect()
+        const db = Mongo_Client.db('esforms')
         const Collection = db.collection('requests')
 
         const query = { _id: id }
@@ -42,7 +42,7 @@ approveRouter.get('/approve/perdiem', async (req, res) => {
     } catch (err) {
         console.log(err)
     } finally {
-        await Client.close()
+        await Mongo_Client.close()
     }
 
     res.send(id)
@@ -51,8 +51,8 @@ approveRouter.get('/approve/perdiem', async (req, res) => {
 approveRouter.get('/approve/pettycash', async (req, res) => {
     const id = ObjectId(`${req.query.id}`)
     try {
-        await Client.connect()
-        const db = Client.db('esforms')
+        await Mongo_Client.connect()
+        const db = Mongo_Client.db('esforms')
         const Collection = db.collection('pettycash')
 
         const query = { _id: id }
@@ -65,7 +65,7 @@ approveRouter.get('/approve/pettycash', async (req, res) => {
     } catch (err) {
         console.log(err)
     } finally {
-        await Client.close()
+        await Mongo_Client.close()
     }
 
     res.send(id)
@@ -74,8 +74,8 @@ approveRouter.get('/approve/pettycash', async (req, res) => {
 approveRouter.get('/approve/vehicle', async (req, res) => {
     const id = ObjectId(`${req.query.id}`)
     try {
-        await Client.connect()
-        const db = Client.db('esforms')
+        await Mongo_Client.connect()
+        const db = Mongo_Client.db('esforms')
         const Collection = db.collection('vehicle')
 
         const query = { _id: id }
@@ -88,7 +88,7 @@ approveRouter.get('/approve/vehicle', async (req, res) => {
     } catch (err) {
         console.log(err)
     } finally {
-        await Client.close()
+        await Mongo_Client.close()
     }
 
     res.send(id)
