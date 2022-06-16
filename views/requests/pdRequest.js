@@ -281,7 +281,7 @@ body {font-family: 'Lato', sans-serif;}
         }</div>
 <div style="font-family: inherit; text-align: inherit"><br></div>
 <div style="font-family: inherit; text-align: inherit"><strong>Total: ${
-            req.currency
+            req.body.currency
         }${req.body.TOTALCLAIM}</strong></div><div></div></div></td>
       </tr>
     </tbody>
