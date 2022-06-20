@@ -310,10 +310,7 @@ module.exports = function (user, req, id) {
                                       <div>
                                         <div style="font-family: inherit; text-align: inherit">Bank Name: ${
                                             req.bankname || 'N/A'
-                                        } | Bank Account Name: ${
-            req.accountname || 'N/A'
-        }
-                                          }</div>
+                                        } | Bank Account Name: ${ req.accountname || 'N/A' } </div>
 
                                         <div style="font-family: inherit; text-align: inherit">Mobile Money #: ${
                                             req.momonumber || 'N/A'
