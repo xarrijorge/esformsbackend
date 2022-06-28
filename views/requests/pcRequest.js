@@ -3,7 +3,8 @@ module.exports = function (user, req, id, file) {
   let viewData = '';
   let totalArr = [];
 
-  const server = 'http://localhost:3001/';
+  // const server = 'http://localhost:3001/';
+  const server = 'http://esformsbackend.herokuapp.com/';
   const fileName = file.originalname.replace(/\s/g, '').toLowerCase();
 
   let i = 1;
