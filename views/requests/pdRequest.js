@@ -1,14 +1,14 @@
 module.exports = function (user, req, id) {
-    // let financeMail =
-    //     user['Base Country'] === 'Sierra Leone'
-    //         ? 'dsafinance@sl.easysolar.org'
-    //         : 'finance@lib.easysolar.org'
-    return {
-        to: [user['Line Manager Email Address']],
-        bcc: 'request-tracker@easysolar.org',
-        from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-        subject: `Per Diem Request from ${user['Full Name']}`,
-        html: `
+  // let financeMail =
+  //     user['Base Country'] === 'Sierra Leone'
+  //         ? 'dsafinance@sl.easysolar.org'
+  //         : 'finance@lib.easysolar.org'
+  return {
+    to: [user['Line Manager Email Address']],
+    bcc: 'request-tracker@easysolar.org',
+    from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
+    subject: `Per Diem Request from ${user['Full Name']}`,
+    html: `
                 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -171,14 +171,12 @@ body {font-family: 'Lato', sans-serif;}
     <tbody>
       <tr>
         <td style="padding:20px 20px 10px 20px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center">Hello ${
-            user['Line Manager Name ']
+          user['Line Manager Name ']
         }</div>
 <div style="font-family: inherit; text-align: center"><br></div>
 <div style="font-family: inherit; text-align: center">You have a Per Diem Request from ${
-            user['Full Name']
-        } - ${
-            user['Job Title']
-        }, awaiting your approval</div><div></div></div></td>
+      user['Full Name']
+    } - ${user['Job Title']}, awaiting your approval</div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="8395333d-62e9-4e61-957d-72d0eefc1a4f">
@@ -233,19 +231,19 @@ body {font-family: 'Lato', sans-serif;}
     <tbody>
       <tr>
         <td style="padding:30px 20px 30px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Travelling to:  ${
-            req.body.destination
+          req.body.destination
         }</div>
 <div style="font-family: inherit; text-align: inherit">Trip Duration: ${
-            req.body.nights
-        } Nights & ${req.body.days} Days</div>
+      req.body.nights
+    } Nights & ${req.body.days} Days</div>
 <div style="font-family: inherit; text-align: inherit">Purpose: ${
-            req.body.purpose
-        }</div>
+      req.body.purpose
+    }</div>
 
 
 <div style="font-family: inherit; text-align: inherit">MISC: ${
-            req.body.requests || ' '
-        }</div><div></div></div></td>
+      req.body.requests || ' '
+    }</div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="f612db9d-7563-4153-b3d5-8a0015929def.1.1" data-mc-module-version="2019-10-22">
@@ -272,17 +270,16 @@ body {font-family: 'Lato', sans-serif;}
     <tbody>
       <tr>
         <td style="padding:30px 20px 30px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Accommodation: ${
-            parseInt(req.body.nights) *
-            parseInt(user.Accommodation.replace(/[^a-z0-9]/gi, ''))
+          parseInt(req.body.nights) *
+          parseInt(user.Accommodation.replace(/[^a-z0-9]/gi, ''))
         } </div>
 <div style="font-family: inherit; text-align: inherit">Meals: ${
-            parseInt(req.body.days) *
-            parseInt(user.Meals.replace(/[^a-z0-9]/gi, ''))
-        }</div>
+      parseInt(req.body.days) * parseInt(user.Meals.replace(/[^a-z0-9]/gi, ''))
+    }</div>
 <div style="font-family: inherit; text-align: inherit"><br></div>
 <div style="font-family: inherit; text-align: inherit"><strong>Total: ${
-            req.body.currency
-        }${req.body.TOTALCLAIM}</strong></div><div></div></div></td>
+      req.body.currency
+    }${req.body.TOTALCLAIM}</strong></div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="f612db9d-7563-4153-b3d5-8a0015929def.1.1.1" data-mc-module-version="2019-10-22">
@@ -378,5 +375,5 @@ body {font-family: 'Lato', sans-serif;}
     </body>
 </html>
                `,
-    }
-}
+  };
+};

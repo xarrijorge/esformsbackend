@@ -1,15 +1,15 @@
 module.exports = function (user, req) {
-    let opsMail =
-        user['Base Country'] === 'Sierra Leone'
-            ? 'vehicle-request@sl.easysolar.org'
-            : 'operations@lib.easysolar.org'
-    return {
-        to: [opsMail],
-        cc: [user['Employee Email Address']],
-        bcc: 'request-tracker@easysolar.org',
-        from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-        subject: `Approved Vehicle Request from ${user['Full Name']}`,
-        html: `
+  let opsMail =
+    user['Base Country'] === 'Sierra Leone'
+      ? 'vehicle-request@sl.easysolar.org'
+      : 'operations@lib.easysolar.org';
+  return {
+    to: [opsMail],
+    cc: [user['Employee Email Address']],
+    bcc: 'request-tracker@easysolar.org',
+    from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
+    subject: `Approved Vehicle Request from ${user['Full Name']}`,
+    html: `
         <!DOCTYPE html>
 <html lang="en">
 
@@ -92,5 +92,5 @@ module.exports = function (user, req) {
 
 </html>
        `,
-    }
-}
+  };
+};

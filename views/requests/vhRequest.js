@@ -1,16 +1,16 @@
 module.exports = function (user, req, id) {
-    // let opsMail =
-    //     user['Base Country'] === 'Sierra Leone'
-    //         ? 'vehicle-request@sl.easysolar.org'
-    //         : 'operations@lib.easysolar.org'
+  // let opsMail =
+  //     user['Base Country'] === 'Sierra Leone'
+  //         ? 'vehicle-request@sl.easysolar.org'
+  //         : 'operations@lib.easysolar.org'
 
-    // let receipient = ''
-    return {
-        to: [user['Line Manager Email Address']],
-        bcc: 'request-tracker@easysolar.org',
-        from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-        subject: `Vehicle Request from ${user['Full Name']}`,
-        html: `
+  // let receipient = ''
+  return {
+    to: [user['Line Manager Email Address']],
+    bcc: 'request-tracker@easysolar.org',
+    from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
+    subject: `Vehicle Request from ${user['Full Name']}`,
+    html: `
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
         <html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
         
@@ -223,13 +223,13 @@ module.exports = function (user, req, id) {
                                               <div>
                                                 <div style="font-family: inherit; text-align: center">Hello ${
                                                   user['Line Manager Name ']
-                                                  }</div>
+                                                }</div>
                                                 <div style="font-family: inherit; text-align: center"><br></div>
                                                 <div style="font-family: inherit; text-align: center">You have a Vehicle Request from ${
                                                   user['Full Name']
-                                                  } - ${
-                                                  user['Job Title']
-                                                  }, awaiting your approval</div>
+                                                } - ${
+      user['Job Title']
+    }, awaiting your approval</div>
                                                 <div></div>
                                               </div>
                                             </td>
@@ -301,21 +301,24 @@ module.exports = function (user, req, id) {
                                               <div>
                                                 <div style="font-family: inherit; text-align: inherit">Requesting for: ${
                                                   req.thirpartyname || 'Self'
-                                                  }</div>
+                                                }</div>
                                                 <div style="font-family: inherit; text-align: inherit">Destination: ${
                                                   req.destination
-                                                  }</div>
+                                                }</div>
                                                 <div style="font-family: inherit; text-align: inherit">Departure Date: ${
                                                   req.departuredate
-                                                  }</div>
+                                                }</div>
         
                                                 <div style="font-family: inherit; text-align: inherit">Return Date: ${
                                                   req.returndate
-                                                  }</div>
+                                                }</div>
                                                 <div style="font-family: inherit; text-align: inherit">Vehicle Requested: ${
-                                                  req.vehicle || 'Any Available Option'
-                                                  }</div>
-                                                <div><h3>Route Distribution Plan <a href=${req.routeplan}>HERE</a></h3></div>
+                                                  req.vehicle ||
+                                                  'Any Available Option'
+                                                }</div>
+                                                <div><h3>Route Distribution Plan <a href=${
+                                                  req.routeplan
+                                                }>HERE</a></h3></div>
                                               </div>
                                             </td>
                                           </tr>
@@ -431,5 +434,5 @@ module.exports = function (user, req, id) {
         
         </html> 
        `,
-    }
-}
+  };
+};

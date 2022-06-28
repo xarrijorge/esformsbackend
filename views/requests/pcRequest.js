@@ -1,34 +1,37 @@
-module.exports = function (user, req, id) {
-    let data = req['items']
-    let viewData = ''
-    let totalArr = []
+module.exports = function (user, req, id, file) {
+  let data = req['items'];
+  let viewData = '';
+  let totalArr = [];
 
-    let i = 1
-    for (const item in data) {
-        totalArr.push(parseInt(`${data[item].total}`))
-        viewData += `<tr style="background-color:${
-            i % 2 !== 0 ? 'white' : 'lightsteelblue'
-        }"><td>${data[item].name}</td>`
-        viewData += `<td>${(data[item].description, i)}</td>`
-        viewData += `<td>${data[item].cost}</td>`
-        viewData += `<td>${data[item].amount}</td>`
-        viewData += `<td>${data[item].total}</td></tr>`
-        i++
-    }
+  const server = 'http://localhost:3001/';
+  const fileName = file.originalname.replace(/\s/g, '').toLowerCase();
 
-    // let director = user['Director']
+  let i = 1;
+  for (const item in data) {
+    totalArr.push(parseInt(`${data[item].total}`));
+    viewData += `<tr style="background-color:${
+      i % 2 !== 0 ? 'white' : 'lightsteelblue'
+    }"><td>${data[item].name}</td>`;
+    viewData += `<td>${(data[item].description, i)}</td>`;
+    viewData += `<td>${data[item].cost}</td>`;
+    viewData += `<td>${data[item].amount}</td>`;
+    viewData += `<td>${data[item].total}</td></tr>`;
+    i++;
+  }
 
-    // let recipient =
-    //     totalArr.reduce((x, y) => x + y) <= 50000
-    //         ? user['Line Manager Email Address']
-    //         : director
+  // let director = user['Director']
 
-    return {
-        to: [user['Line Manager Email Address']],
-        bcc: 'request-tracker@easysolar.org',
-        from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-        subject: `Petty Cash Request from ${user['Full Name']}`,
-        html: `
+  // let recipient =
+  //     totalArr.reduce((x, y) => x + y) <= 50000
+  //         ? user['Line Manager Email Address']
+  //         : director
+
+  return {
+    to: [user['Line Manager Email Address']],
+    bcc: 'request-tracker@easysolar.org',
+    from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
+    subject: `Petty Cash Request from ${user['Full Name']}`,
+    html: `
         <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -255,11 +258,11 @@ module.exports = function (user, req, id) {
                                     <td style="padding:20px 20px 10px 20px; line-height:12px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content">
                                       <div>
                                         <div style="font-family: inherit; text-align: center">Hello ${
-                                            user['Line Manager Name ']
+                                          user['Line Manager Name ']
                                         }</div>
                                         <div style="font-family: inherit; text-align: center"><br></div>
                                         <div style="font-family: inherit; text-align: center">Request from ${
-                                            user['Full Name']
+                                          user['Full Name']
                                         } - ${user['Job Title']}</div>
                                         <div></div>
                                       </div>
@@ -309,20 +312,22 @@ module.exports = function (user, req, id) {
                                     <td style="padding:30px 20px 0px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content">
                                       <div>
                                         <div style="font-family: inherit; text-align: inherit">Bank Name: ${
-                                            req.bankname || 'N/A'
-                                        } | Bank Account Name: ${ req.accountname || 'N/A' } </div>
+                                          req.bankname || 'N/A'
+                                        } | Bank Account Name: ${
+      req.accountname || 'N/A'
+    } </div>
 
                                         <div style="font-family: inherit; text-align: inherit">Mobile Money #: ${
-                                            req.momonumber || 'N/A'
+                                          req.momonumber || 'N/A'
                                         } | BBAN #: ${
-            req.bbandnumber || 'N/A'
-        }</div>
+      req.bbandnumber || 'N/A'
+    }</div>
                                         <div style="font-family: inherit; text-align: inherit">Department: ${
-                                            req.department
+                                          req.department
                                         } | Request Currency: ${
-            req.currency
-        } | Budget Code: ${req.budgetcode}</div>
-<h3>Invoices <a href=${req.invoices}>HERE</a></h3>
+      req.currency
+    } | Budget Code: ${req.budgetcode}</div>
+<h3>Invoices <a href=${server}${fileName}>HERE</a></h3>
                                   </tr>
                                 </tbody>
                               </table>
@@ -371,8 +376,9 @@ module.exports = function (user, req, id) {
                                     <td>-</td>
                                     <td>-</td>
                                     <td>${req.currency}${totalArr.reduce(
-            (x, y) => x + y
-        )}</td>
+      (x, y) => x + y,
+      0
+    )}</td>
                                   </tr>
                                   
                                 </tbody>
@@ -492,5 +498,5 @@ module.exports = function (user, req, id) {
 </html>
 
         `,
-    }
-}
+  };
+};
