@@ -30,7 +30,9 @@ const fileStorageEngine = multer.diskStorage({
       null,
       // req.body.user['Full Name'] +
       //   '--' +
-      file.originalname.replace(/\s/g, '').toLowerCase()
+      `${Date.now().toString(32)}-${file.originalname
+        .replace(/\s/g, '')
+        .toLowerCase()}`
     );
   },
 });
@@ -74,25 +76,6 @@ requestRouter.get('/users', async (req, res) => {
   }
 });
 
-// requestRouter.post('/requests/perdiem', async (req, res) => {
-//     const body = { ...req.body, user: { ...req.user }, submittedOn: new Date() }
-
-//     try {
-//         await Mongo_Client.connect()
-//         const db = Mongo_Client.db('esforms')
-//         const requestCollection = db.collection('requests')
-
-//         await requestCollection.insertOne(body)
-//         // await CreatePDF('views/perdiem.js', user)
-//         await sendMail(perdiemMsg(body['user'], req, body._id))
-//         return res.send(body)
-//     } catch (err) {
-//         console.log(err)
-//     } finally {
-//         await Mongo_Client.close()
-//     }
-//     res.send(body)
-// })
 requestRouter.post('/requests/perdiem', async (req, res) => {
   const body = req.body;
   try {
@@ -110,23 +93,28 @@ requestRouter.post('/requests/perdiem', async (req, res) => {
   }
   res.send(body);
 });
+const server = 'http://esformsbackend.herokuapp.com/';
 
 requestRouter.post(
   '/requests/pettycash',
   upload.single('invoice'),
   async (req, res) => {
-    const body = req.body;
+    const body = {};
+    body._id = req._id;
+    body.details = JSON.parse(req.body.details);
+    body.details.invoiceLink = `${server}${req.file.filename}`;
+    body.user = JSON.parse(req.body.user);
     try {
-      console.log(req.body.details);
+      console.log(req._id, body._id);
       await Mongo_Mongo_Client.connect();
       const db = Mongo_Mongo_Client.db('esforms');
       const pettyCashCollection = db.collection('pettycash');
 
-      await pettyCashCollection.insertOne(req.body);
+      await pettyCashCollection.insertOne(body);
       await sendMail(
         pettycashMsg(
-          JSON.parse(body.user),
-          JSON.parse(body.details),
+          JSON.parse(req.body.user),
+          JSON.parse(req.body.details),
           body._id,
           req.file
         )

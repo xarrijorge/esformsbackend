@@ -5,7 +5,7 @@ module.exports = function (user, req, id, file) {
 
   // const server = 'http://localhost:3001/';
   const server = 'http://esformsbackend.herokuapp.com/';
-  const fileName = file.originalname.replace(/\s/g, '').toLowerCase();
+  const fileName = file.filename;
 
   let i = 1;
   for (const item in data) {
