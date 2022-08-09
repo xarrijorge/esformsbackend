@@ -27,7 +27,7 @@ app.options('*', cors());
 // app.use(logger)
 
 app.get('/', (req, res) => {
-  res.send('<h1>Horld!</h1>');
+    res.send('<h1>Hello Easy!</h1>');
 });
 app.get('/users', requestRouter);
 app.post('/requests/perdiem', requestRouter);
@@ -38,8 +38,7 @@ app.get('/approve/perdiem', approveRouter);
 app.get('/approve/pettycash', approveRouter);
 app.get('/approve/vehicle', approveRouter);
 app.get('/reject/perdiem', rejectRouter);
-app.get('/reject/pettycash', rejectRouter);
-app.get('/reject/vehicle', rejectRouter);
+app.post('/reject/pettycash', rejectRouter);
 
 // for parsing multipart/form-data
 app.use(upload.array());
@@ -57,5 +56,5 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });

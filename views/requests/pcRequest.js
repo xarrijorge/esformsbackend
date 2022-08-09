@@ -1,38 +1,38 @@
 module.exports = function (user, req, id, file) {
-  let data = req['items'];
-  let viewData = '';
-  let totalArr = [];
+    let data = req['items'];
+    let viewData = '';
+    let totalArr = [];
 
-  // const server = 'http://localhost:3001/';
-  const server = 'http://esformsbackend.herokuapp.com/';
-  const fileName = file.filename;
+    // const server = 'http://localhost:3001/';
+    const server = 'http://esformsbackend.herokuapp.com/';
+    const fileName = file.filename;
 
-  let i = 1;
-  for (const item in data) {
-    totalArr.push(parseInt(`${data[item].total}`));
-    viewData += `<tr style="background-color:${
-      i % 2 !== 0 ? 'white' : 'lightsteelblue'
-    }"><td>${data[item].name}</td>`;
-    viewData += `<td>${(data[item].description, i)}</td>`;
-    viewData += `<td>${data[item].cost}</td>`;
-    viewData += `<td>${data[item].amount}</td>`;
-    viewData += `<td>${data[item].total}</td></tr>`;
-    i++;
-  }
+    let i = 1;
+    for (const item in data) {
+        totalArr.push(parseInt(`${data[item].total}`));
+        viewData += `<tr style="background-color:${
+            i % 2 !== 0 ? 'white' : 'lightsteelblue'
+        }"><td>${data[item].name}</td>`;
+        viewData += `<td>${(data[item].description, i)}</td>`;
+        viewData += `<td>${data[item].cost}</td>`;
+        viewData += `<td>${data[item].amount}</td>`;
+        viewData += `<td>${data[item].total}</td></tr>`;
+        i++;
+    }
 
-  // let director = user['Director']
+    // let director = user['Director']
 
-  // let recipient =
-  //     totalArr.reduce((x, y) => x + y) <= 50000
-  //         ? user['Line Manager Email Address']
-  //         : director
+    // let recipient =
+    //     totalArr.reduce((x, y) => x + y) <= 50000
+    //         ? user['Line Manager Email Address']
+    //         : director
 
-  return {
-    to: [user['Line Manager Email Address']],
-    bcc: 'request-tracker@easysolar.org',
-    from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-    subject: `Petty Cash Request from ${user['Full Name']}`,
-    html: `
+    return {
+        to: [user['Line Manager Email Address']],
+        bcc: 'request-tracker@easysolar.org',
+        from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
+        subject: `Petty Cash Request from ${user['Full Name']}`,
+        html: `
         <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -259,11 +259,11 @@ module.exports = function (user, req, id, file) {
                                     <td style="padding:20px 20px 10px 20px; line-height:12px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content">
                                       <div>
                                         <div style="font-family: inherit; text-align: center">Hello ${
-                                          user['Line Manager Name ']
+                                            user['Line Manager Name ']
                                         }</div>
                                         <div style="font-family: inherit; text-align: center"><br></div>
                                         <div style="font-family: inherit; text-align: center">Request from ${
-                                          user['Full Name']
+                                            user['Full Name']
                                         } - ${user['Job Title']}</div>
                                         <div></div>
                                       </div>
@@ -313,21 +313,21 @@ module.exports = function (user, req, id, file) {
                                     <td style="padding:30px 20px 0px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content">
                                       <div>
                                         <div style="font-family: inherit; text-align: inherit">Bank Name: ${
-                                          req.bankname || 'N/A'
+                                            req.bankname || 'N/A'
                                         } | Bank Account Name: ${
-      req.accountname || 'N/A'
-    } </div>
+            req.accountname || 'N/A'
+        } </div>
 
                                         <div style="font-family: inherit; text-align: inherit">Mobile Money #: ${
-                                          req.momonumber || 'N/A'
+                                            req.momonumber || 'N/A'
                                         } | BBAN #: ${
-      req.bbandnumber || 'N/A'
-    }</div>
+            req.bbandnumber || 'N/A'
+        }</div>
                                         <div style="font-family: inherit; text-align: inherit">Department: ${
-                                          req.department
+                                            req.department
                                         } | Request Currency: ${
-      req.currency
-    } | Budget Code: ${req.budgetcode}</div>
+            req.currency
+        } | Budget Code: ${req.budgetcode}</div>
 <h3>Invoices <a href=${server}${fileName}>HERE</a></h3>
                                   </tr>
                                 </tbody>
@@ -377,9 +377,9 @@ module.exports = function (user, req, id, file) {
                                     <td>-</td>
                                     <td>-</td>
                                     <td>${req.currency}${totalArr.reduce(
-      (x, y) => x + y,
-      0
-    )}</td>
+            (x, y) => x + y,
+            0
+        )}</td>
                                   </tr>
                                   
                                 </tbody>
@@ -446,7 +446,7 @@ module.exports = function (user, req, id, file) {
                                                         <tbody>
                                                           <tr>
                                                             <td align="center" bgcolor="#df2b26" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                                                              <a href="https://esformsbackend.herokuapp.com/reject/pettycash?id=${id}" style="background-color:#df2b26; border:0px solid #333333; border-color:#333333; border-radius:5px; border-width:0px; color:#ffffff; display:inline-block; font-size:18px; font-weight:bold; letter-spacing:0px; line-height:normal; padding:12px 18px 12px 18px; text-align:center; text-decoration:none; border-style:solid; font-family:inherit; width:174px; margin: 5px 0;" target="_blank">Reject</a>
+                                                              <a href="https://esformsbackend.herokuapp.com/reject/pettycash?id=${id}&file=${server}${fileName}" style="background-color:#df2b26; border:0px solid #333333; border-color:#333333; border-radius:5px; border-width:0px; color:#ffffff; display:inline-block; font-size:18px; font-weight:bold; letter-spacing:0px; line-height:normal; padding:12px 18px 12px 18px; text-align:center; text-decoration:none; border-style:solid; font-family:inherit; width:174px; margin: 5px 0;" target="_blank">Reject</a>
                                                             </td>
                                                           </tr>
                                                         </tbody>
@@ -499,5 +499,5 @@ module.exports = function (user, req, id, file) {
 </html>
 
         `,
-  };
+    };
 };
