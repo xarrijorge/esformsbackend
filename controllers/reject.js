@@ -47,7 +47,7 @@ rejectRouter.get('/reject/perdiem', async (req, res) => {
 });
 
 rejectRouter.post('/reject/*', async (req, res) => {
-    const id = ObjectId(`${req.body.ID}`);
+    const id = ObjectId(req.body.ID.replace(/[^a-z0-9]/gi, ''));
     const reqType = req.body.TYPE === 'pettycash' ? 'pettycash' : 'requests';
     try {
         await Mongo_Client.connect();
