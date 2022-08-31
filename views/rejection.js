@@ -4,8 +4,8 @@ module.exports = function (user, req) {
         to: [user['Employee Email Address']],
         bcc: 'request-tracker@easysolar.org',
         from: 'techadmin@easysolar.org', // Use the email address or domain you verified above
-        subject: 'Rejected Petty Cash Request',
-        text: `Your Request Was Not Approved of the following reason: ${reason}.`,
+        subject: `Rejected ${req.body.TYPE} Request`,
+        // text: `Your Request Was Not Approved of the following reason: ${reason}.`,
         html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
 

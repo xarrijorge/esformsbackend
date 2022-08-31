@@ -46,12 +46,13 @@ rejectRouter.get('/reject/perdiem', async (req, res) => {
     res.send(id);
 });
 
-rejectRouter.post('/reject/pettycash', async (req, res) => {
+rejectRouter.post('/reject/*', async (req, res) => {
     const id = ObjectId(`${req.body.ID}`);
+    const reqType = req.body.TYPE === 'Petty Cash' ? 'pettycash' : 'requests';
     try {
         await Mongo_Client.connect();
         const db = Mongo_Client.db('esforms');
-        const Collection = db.collection('pettycash');
+        const Collection = db.collection(reqType);
 
         const query = { _id: id };
         const request = await Collection.findOne(query);
