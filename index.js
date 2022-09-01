@@ -37,7 +37,7 @@ app.post('/requests/upload', requestRouter);
 app.get('/approve/perdiem', approveRouter);
 app.get('/approve/pettycash', approveRouter);
 app.get('/approve/vehicle', approveRouter);
-app.get('/reject/perdiem', rejectRouter);
+app.post('/reject/perdiem', rejectRouter);
 app.post('/reject/pettycash', rejectRouter);
 
 // for parsing multipart/form-data
