@@ -270,7 +270,7 @@ module.exports = function (user, req) {
                                   <tr>
                                     <td style="padding:18px 30px 18px 40px; line-height:28px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content">
                                       <div>
-                                        <div style="font-family: inherit; text-align: center"><span style="font-size: 28px">This Request has been Approved!</span></div>
+                                        <div style="font-family: inherit; text-align: center"><span style="font-size: 28px">This Request has been Rejected!</span></div>
                                         <div></div>
                                       </div>
                                     </td>
