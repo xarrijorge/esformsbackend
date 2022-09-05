@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 app.get('/users', requestRouter);
 app.post('/requests/perdiem', requestRouter);
 app.post('/requests/pettycash', requestRouter);
+app.post('/requests/pettycash/2', requestRouter);
 app.post('/requests/vehicle', requestRouter);
 app.post('/requests/upload', requestRouter);
 app.get('/approve/perdiem', approveRouter);

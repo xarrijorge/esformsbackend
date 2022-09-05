@@ -1,11 +1,11 @@
-module.exports = function (user, req, id, file) {
+module.exports = function (user, req, id, file = null) {
     let data = req['items'];
     let viewData = '';
     let totalArr = [];
 
     // const server = 'http://localhost:3001/';
     const server = 'http://esformsbackend.herokuapp.com/';
-    const fileName = file.filename;
+    const fileName = file !== null ? file.filename : '#';
 
     let i = 1;
     for (const item in data) {
